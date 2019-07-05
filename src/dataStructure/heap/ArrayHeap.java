@@ -3,7 +3,7 @@ package dataStructure.heap;
 import java.util.Arrays;
 
 //对于每一结点n,n的左孩子将位于数组的2n+1位置处,
-//n的游孩子将位于数组的2(n+1)位置处
+//n的右孩子将位于数组的2(n+1)位置处
 //除根结点外的结点n,n的双亲位于(n-1)/2位置处
 public class ArrayHeap<T> {
 

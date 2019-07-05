@@ -1,5 +1,8 @@
 package dataStructure.tree;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 public class traversal {
     //         A
     //        /\
@@ -41,4 +44,33 @@ public class traversal {
     //      Add null on the result list
     // }
     // Return an Iterator for the result list
+    public static void levelTraverse(Node root) {
+        if (root == null)
+            return;
+        Queue<Node> q = new ArrayDeque<Node>();
+        q.add(root);
+        Node cur;
+        while (!q.isEmpty()) {
+            cur = q.peek();
+            System.out.print(cur.value + " ");
+            if (cur.left != null)
+                q.add(cur.left);
+            if (cur.right != null)
+                q.add(cur.right);
+            q.poll();
+        }
+    }
+
+    public class Node {
+        private int value;
+        private Node left;
+        private Node right;
+
+        public Node(int value){
+            this.value = value;
+            left = null;
+            right = null;
+        }
+    }
+
 }
