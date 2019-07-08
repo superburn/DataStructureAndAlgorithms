@@ -156,4 +156,62 @@ public class DynamicProgramming {
 //6    print ")"
 
 //例如PRINT-OPTIMAL-PARENS(s,1,6)输出((A1(A2A3))((A4A5)A6)
+
+//MEMOIZED-MATRIX-CHAIN(P)
+//1 n=P.length-1
+//2 let m[1..n,1,,n] be a new table
+//3 for i=1 to n
+//4    for j=i to n
+//5       m[i,j] = positive infinity
+//6 return LOOKUP-CHAIN(m,P,1,n)
+//
+//LOOKUP-CHAIN(m,P,i,j)
+//1 if m[i,j] < positive infinity
+//2 if i==j
+//3    m[i,j] = 0
+//4 else for k=i to j-1
+//5         q=LOOKUP-CHAIN(m,P,i,k)+LOOKUP-CHAIN(m,p,k,j-1)+Pi-1PkPj
+//6         if q<m[i,j]
+//7            m[i,j]=q
+//8 return m[i,j]
+
+///////////////////////////////////////最长公共子序列 LCS/////////////////////////////////////////////
+//最长公共子序列问题：给定两个序列X=<X1,X2,...Xm>和Y=<Y1,Y2,...Yn>,求X和Y长度最长的公共子序列。
+//给定一个序列X=<X1,X2,...Xm>，另一个序列Z=<Z1,Z2,...Zk>满足如下条件时称为X的子序列，即存在一个严格递增的X的下标序列
+//<i1,i2,..,ik>,对所有j=1,2,...,k，满足xi=zj。例如，Z=<B,C,D,B>是X=<A,B,C,B,D,A,B>的子序列，对应的下标序列为
+//<2,3,5,7>。给定两个序列X和Y，如果Z既是X的子序列，也是Y的子序列，我们称它是X和Y的公共子序列。
+//前缀：给定一个序列X=<X1,X2,...Xm>，对i=0,1,...m，定义X的第i前缀为Xi=<1,X2,...Xi>。例如，若X=<A,B,C,B,D,A,B>，
+//则X4=<A,B,C,B>，X0为空串
+//定理（LCS的最优子结构）令X=<X1,X2,...Xm>和Y=<Y1,Y2,...Yn>为两个序列，Z=<Z1,Z2,...Zk>为X和Y的任意LCS。
+//1.如果Xm=Yn，则Zk=Xm=Yn且Zk-1是Xm-1和Yn-1的一个LCS
+//2.如果Xm！=Yn，那么则Zk！=Xm意味着Z是Xm-1和Yn的一个LCS
+//3.如果Xm！=Yn，那么则Zk！=Yn意味着Z是Xm和Yn-1的一个LCS
+//
+//如果Xm=Yn，我们应该求解Xm-1和Yn-1的一个LCS。将Xm=Yn追加到这个LCS的末尾，就得到X和Y的一个LCS。如果Xm！=Yn，我们必须求解两个
+//子问题：求Xm-1和Y的一个LCS与X和Yn-1的一个LCS。两个LCS较长者即为X和Y的一个LCS。
+//我们定义c[i,j]表示Xi和Yj的LCS的长度。如果i=0或j=0，即一个序列长度为0，那么LCS的长度为0.
+//
+//        0                       若i=0或j=0
+//c[i,j]={c[i-1,j-1]+1            若i,j>0且Xi=Yj
+//        max(c[i,j-1],c[i-1,j]   若i,j>0且Xi！=Yj
+//
+//动态规划自底向上
+//LCS-LENGTH(X,Y)
+//1  m=X.length
+//2  n=Y.length
+//3  let c[0..m,0..n] be a new table
+//4  for i=1 to m
+//5     c[i,0]=0
+//6  for j=1 to n
+//7     c[0,j]=0
+//8     for i=1 to m
+//9        i=1 to n
+//10    if Xi=Yj
+//11       c[i,j]=c[i-1,j-1]+1
+//12    elseif c[i-1,j] >= c[i,j-1]
+//13       c[i,j]=c[i-1,j]
+//14    else c[i,j]=c[i,j-1]
+//15  return c
+//
+//过程的运行时间为O(mn)
 }
