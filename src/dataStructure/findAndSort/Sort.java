@@ -22,7 +22,7 @@ public class Sort<T> {
     public List<T> topK(int k, List<T> list, Comparator<T> comparator) {
         PriorityQueue<T> heap = new PriorityQueue<>(list.size(), comparator);
         for (T element : list) {
-            if (k > list.size()) {
+            if (k > heap.size()) {
                 heap.offer(element);
                 continue;
             }
